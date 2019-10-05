@@ -12,6 +12,8 @@ public class VentanaPrincipal_Contr {
 
     VentanaPrincipal_Form ventanaPrincipal;
     JPanel panelPrinc;
+    
+    public VentanaPrincipal_Contr(){} //constructor vacio
     public VentanaPrincipal_Contr(VentanaPrincipal_Form ventanaPrincipal) {
         
        this.ventanaPrincipal=ventanaPrincipal;
@@ -78,7 +80,7 @@ public class VentanaPrincipal_Contr {
         panelPrinc.add(frameInterno);
         Dimension dim_panelP=panelPrinc.getSize();
         Dimension dim_frameInt=frameInterno.getSize();
-        frameInterno.setLocation((dim_panelP.width - dim_frameInt.height)/2, (dim_panelP.height - dim_frameInt.width)/2);
+        frameInterno.setLocation((dim_panelP.width - dim_frameInt.width)/2, (dim_panelP.height - dim_frameInt.height)/2);
         frameInterno.show();
     }
     

@@ -82,6 +82,27 @@ public class ClienteDAO {
         } catch (Exception e) {
         }
     }
+    
+    
+    //////////////////////////////////////////////77777
+    public Cliente listarCedula(String ci){
+        Cliente c=new Cliente();
+        String sql="select * from cliente where ciCliente=?";
+        try {
+            con=conexion.conectar();
+            ps=con.prepareStatement(sql);
+            ps.setString(1, ci);
+            rs=ps.executeQuery();
+            while(rs.next()){
+                c.setIdCliente(rs.getInt(1));
+                c.setCiCliente(rs.getString(2));
+                c.setNombres(rs.getString(3));
+                c.setDireccion(rs.getString(4));
+            }
+        } catch (Exception e) {
+        }
+        return c;
+    }
 }
 
 
