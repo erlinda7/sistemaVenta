@@ -13,6 +13,7 @@ public class ProductoDAO {
     PreparedStatement ps;
     ResultSet rs;
     
+    int res;
     
      public List listarProductos(){
         
@@ -103,6 +104,21 @@ public class ProductoDAO {
         } catch (Exception e) {
         }
         return p;
+    }
+    
+    
+    //////////////////7777
+    public int modificarStock(int cant, int idProd){
+        String sql="update producto set stock=? where idProducto=?";
+        try {
+            con=conexion.conectar();
+            ps=con.prepareStatement(sql);
+            ps.setInt(1, cant);
+            ps.setInt(2, idProd);
+            res=ps.executeUpdate();
+        } catch (Exception e) {
+        }
+        return res;
     }
     
 }

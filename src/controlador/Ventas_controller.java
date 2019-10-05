@@ -33,6 +33,8 @@ public class Ventas_controller implements ActionListener{
   
     Cliente cliente=new Cliente();
     
+    int idProd;
+    
     public Ventas_controller(Ventas_Form ventas_form) {
         
         this.ventas_form=ventas_form;
@@ -56,8 +58,15 @@ public class Ventas_controller implements ActionListener{
        }else if(ventas_form.btnAgregar==e.getSource()){
            agregarProducto();
        }else if(ventas_form.btnGenerarVenta==e.getSource()){
-           guardarVenta();
-           guardarDetalle();
+           if(ventas_form.txtTotalPagar.getText().equals("")){
+               JOptionPane.showMessageDialog(ventas_form, "Debe ingresar datos");
+           }else{
+                guardarVenta();
+                guardarDetalle();
+                actualizarStock();
+                 JOptionPane.showMessageDialog(ventas_form, "Se realizo la venta con exito");
+                 nuevo();
+           }
        }
        
     }
@@ -85,11 +94,11 @@ public class Ventas_controller implements ActionListener{
     
     //buscar producto
     public void buscarProducto(){
-        int id=Integer.parseInt(ventas_form.txtCodProd.getText());
+        idProd=Integer.parseInt(ventas_form.txtCodProd.getText());
         if(ventas_form.txtCodProd.getText().equals("")){
             JOptionPane.showMessageDialog(ventas_form, "Debe ingresar el codigo del producto");
         }else {
-            Producto p=productoDAO.listarId(id);
+            Producto p=productoDAO.listarId(idProd);
             if(p.getIdProducto()!=0){
                 ventas_form.txtProducto.setText(p.getNombre());
                 ventas_form.txtPrecio.setText(p.getPrecio()+"");
@@ -186,6 +195,42 @@ public class Ventas_controller implements ActionListener{
             detalleVentas.setPrecioVenta(precio);
             
             ventasDAO.agregarDetalleVentas(detalleVentas);
+        }
+    }
+    
+    ////////////77777
+    public void actualizarStock(){
+        for (int i = 0; i < tablaModel.getRowCount(); i++) {
+            Producto producto=new Producto();
+            idProd=Integer.parseInt(ventas_form.tablaVentas.getValueAt(i, 1).toString());
+            cant=Integer.parseInt(ventas_form.tablaVentas.getValueAt(i, 3).toString());
+            producto=productoDAO.listarId(idProd);
+            int stockActual=producto.getStock()- cant;
+            
+            productoDAO.modificarStock(stockActual, idProd);
+        }
+    }
+    
+    
+
+    
+    public void nuevo(){
+        limpiarTabla();
+        ventas_form.txtCedula.setText("");
+        ventas_form.txtCliente.setText("");
+        ventas_form.txtCodProd.setText("");
+        ventas_form.txtProducto.setText("");
+        ventas_form.txtCliente.setText("");
+        ventas_form.txtVendedor.setText("");
+        ventas_form.spCantidad.setValue(1);
+        ventas_form.txtPrecio.setText("");
+        ventas_form.txtStok.setText("");
+        ventas_form.txtFecha.setText("");
+    }
+        public void limpiarTabla(){
+        for (int i = 0; i < tablaModel.getRowCount(); i++) {
+            tablaModel.removeRow(i);
+            i=i-1;
         }
     }
 }
