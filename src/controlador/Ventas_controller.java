@@ -8,6 +8,8 @@ package controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.*;
@@ -20,19 +22,29 @@ public class Ventas_controller implements ActionListener{
     ClienteDAO clienteDAO=new ClienteDAO();
     ProductoDAO productoDAO=new ProductoDAO();
     
+    Ventas ventas=new Ventas();
+    VentasDAO ventasDAO=new VentasDAO();
+    DetalleVentas detalleVentas=new DetalleVentas();
+    
     double totalPagar;
     double precio;
     int cant;
     DefaultTableModel tablaModel=new DefaultTableModel();
   
+    Cliente cliente=new Cliente();
     
     public Ventas_controller(Ventas_Form ventas_form) {
         
         this.ventas_form=ventas_form;
+        
+        agregarFecha();
         //eventos
         ventas_form.btnBucarCliente.addActionListener(this);
         ventas_form.btnBuscarProd.addActionListener(this);
         ventas_form.btnAgregar.addActionListener(this);
+        ventas_form.btnGenerarVenta.addActionListener(this);
+        
+        
     }
 
     @Override
@@ -43,6 +55,9 @@ public class Ventas_controller implements ActionListener{
            buscarProducto();
        }else if(ventas_form.btnAgregar==e.getSource()){
            agregarProducto();
+       }else if(ventas_form.btnGenerarVenta==e.getSource()){
+           guardarVenta();
+           guardarDetalle();
        }
        
     }
@@ -54,7 +69,7 @@ public class Ventas_controller implements ActionListener{
         if(ventas_form.txtCedula.getText().equals("")){
             JOptionPane.showMessageDialog(ventas_form, "Debe ingresar el ci del Cliente");
         }else{
-            Cliente cliente=clienteDAO.listarCedula(cod);
+            cliente=clienteDAO.listarCedula(cod);
             if(cliente.getCiCliente()!=null){
                 ventas_form.txtCliente.setText(cliente.getNombres());
             }else{
@@ -131,5 +146,46 @@ public class Ventas_controller implements ActionListener{
             totalPagar=totalPagar + (cant*precio);
         }
         ventas_form.txtTotalPagar.setText(totalPagar+"");
+    }
+    
+    
+    //////////77
+    public void agregarFecha(){
+        Calendar cal=new GregorianCalendar();
+        int anio=cal.get(Calendar.YEAR);
+        int mes=cal.get(Calendar.MONTH)+1;
+        int dia=cal.get(Calendar.DAY_OF_MONTH);
+        ventas_form.txtFecha.setText(anio+"-"+mes+"-"+dia);
+    }
+    
+    public void guardarVenta(){
+        int idVendedor=1;
+        int idCliente=cliente.getIdCliente();
+        String fecha=ventas_form.txtFecha.getText();
+        double monto=totalPagar;
+        
+        ventas.setIdCliente(idCliente);
+        ventas.setIdVendedor(idVendedor);
+        ventas.setFechaVenta(fecha);
+        ventas.setMonto(monto);
+        
+        ventasDAO.agregarVentas(ventas);
+    }
+    
+    public void guardarDetalle(){
+        int idVen=Integer.parseInt(ventasDAO.idVentas());
+              
+        for (int i = 0; i < ventas_form.tablaVentas.getRowCount(); i++) {
+            int idProd=Integer.parseInt(ventas_form.tablaVentas.getValueAt(i, 1).toString());
+            int cant=Integer.parseInt(ventas_form.tablaVentas.getValueAt(i, 3).toString());
+            double precio=Double.parseDouble(ventas_form.tablaVentas.getValueAt(i, 4).toString());
+            
+            detalleVentas.setIdVenta(idVen);
+            detalleVentas.setIdProducto(idProd);
+            detalleVentas.setCantidad(cant);
+            detalleVentas.setPrecioVenta(precio);
+            
+            ventasDAO.agregarDetalleVentas(detalleVentas);
+        }
     }
 }

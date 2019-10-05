@@ -1,19 +1,19 @@
 
 package modelo;
 
-import java.util.Date;
+
 
 public class Ventas {
     private int idVenta;
     private int idCliente;
     private int idVendedor;
-    private Date fechaVenta;
+    private String fechaVenta;
     private double monto;
 
     public Ventas() {
     }
 
-    public Ventas(int idVenta, int idCliente, int idVendedor, Date fechaVenta, double monto) {
+    public Ventas(int idVenta, int idCliente, int idVendedor, String fechaVenta, double monto) {
         this.idVenta = idVenta;
         this.idCliente = idCliente;
         this.idVendedor = idVendedor;
@@ -53,11 +53,11 @@ public class Ventas {
         this.idVendedor = idVendedor;
     }
 
-    public Date getFechaVenta() {
+    public String getFechaVenta() {
         return fechaVenta;
     }
 
-    public void setFechaVenta(Date fechaVenta) {
+    public void setFechaVenta(String fechaVenta) {
         this.fechaVenta = fechaVenta;
     }
 
