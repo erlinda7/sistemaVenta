@@ -39,6 +39,8 @@ public class VentanaPrincipal_Contr {
                Ventas_Form ventas_Form=new Ventas_Form();
                ventas_Form.setTitle("Ventas");
                centarFrameInterno(ventas_Form);
+               
+               Ventas_controller ventas_contr=new Ventas_controller(ventas_Form);
            }
        });
        
@@ -84,6 +86,6 @@ public class VentanaPrincipal_Contr {
         frameInterno.show();
     }
     
-    
-    
+
+
 }

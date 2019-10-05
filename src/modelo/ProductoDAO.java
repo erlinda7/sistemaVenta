@@ -83,4 +83,24 @@ public class ProductoDAO {
         } catch (Exception e) {
         }
     }
+    
+    
+    //////////////////7777
+    public Producto listarId(){
+        Producto p=new Producto();
+        String sql="select * from producto where IdProducto";
+        try {
+            con=conexion.conectar();
+            ps=con.prepareStatement(sql);
+            rs=ps.executeQuery();
+            while (rs.next()) {                
+                p.setIdProducto(rs.getInt(1));
+                p.setNombre(rs.getString(2));
+                p.setPrecio(rs.getDouble(3));
+                p.setStock(rs.getInt(4));
+            }
+        } catch (Exception e) {
+        }
+        return p;
+    }
 }

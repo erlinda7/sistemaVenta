@@ -132,6 +132,6 @@ public class VentanaPrincipal_Form extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     public javax.swing.JMenu jmenu3;
-    public javax.swing.JPanel panelPrincipal;
+    public static javax.swing.JPanel panelPrincipal;
     // End of variables declaration//GEN-END:variables
 }

@@ -42,8 +42,8 @@ public class Ventas_controller implements ActionListener{
                 res=JOptionPane.showConfirmDialog(ventas_form, "Cliente no registrado, desea registrar?");
                 if(res==0){
                     Cliente_Form cform=new Cliente_Form();
-                    VentanaPrincipal_Contr vpc=new VentanaPrincipal_Contr();
-                    vpc.centarFrameInterno(cform);
+                    VentanaPrincipal_Form.panelPrincipal.add(cform);
+                    cform.setVisible(true);
                 }
             }
         }
