@@ -16,16 +16,24 @@ public class Ventas_controller implements ActionListener{
     
     Ventas_Form ventas_form;
     ClienteDAO clienteDAO=new ClienteDAO();
+    ProductoDAO productoDAO=new ProductoDAO();
 
     public Ventas_controller(Ventas_Form ventas_form) {
         
         this.ventas_form=ventas_form;
+        //eventos
         ventas_form.btnBucarCliente.addActionListener(this);
+        ventas_form.btnBuscarProd.addActionListener(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-       buscarCliente();
+       if(ventas_form.btnBucarCliente==e.getSource()){
+           buscarCliente();
+       }else if(ventas_form.btnBuscarProd==e.getSource()){
+           buscarProducto();
+       }
+       
     }
     
     //metodos del evento
@@ -45,6 +53,23 @@ public class Ventas_controller implements ActionListener{
                     VentanaPrincipal_Form.panelPrincipal.add(cform);
                     cform.setVisible(true);
                 }
+            }
+        }
+    }
+    
+    //buscar producto
+    public void buscarProducto(){
+        int id=Integer.parseInt(ventas_form.txtCodProd.getText());
+        if(ventas_form.txtCodProd.getText().equals("")){
+            JOptionPane.showMessageDialog(ventas_form, "Debe ingresar el codigo del producto");
+        }else {
+            Producto p=productoDAO.listarId(id);
+            if(p.getIdProducto()!=0){
+                ventas_form.txtProducto.setText(p.getNombre());
+                ventas_form.txtPrecio.setText(p.getPrecio()+"");
+                ventas_form.txtStok.setText(p.getStock()+"");
+            }else{
+                JOptionPane.showMessageDialog(ventas_form, "Producto no registrado");
             }
         }
     }

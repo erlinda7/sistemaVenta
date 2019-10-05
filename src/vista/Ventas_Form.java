@@ -38,7 +38,7 @@ public class Ventas_Form extends javax.swing.JInternalFrame {
         txtCedula = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         txtCodProd = new javax.swing.JTextField();
-        btnCodProd = new javax.swing.JButton();
+        btnBuscarProd = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         txtProducto = new javax.swing.JTextField();
@@ -119,7 +119,7 @@ public class Ventas_Form extends javax.swing.JInternalFrame {
 
         jLabel7.setText("CODIGO PRODUCTO : ");
 
-        btnCodProd.setText("BUSCAR");
+        btnBuscarProd.setText("BUSCAR");
 
         jLabel8.setText("PRECIO : ");
 
@@ -150,7 +150,7 @@ public class Ventas_Form extends javax.swing.JInternalFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(txtCodProd)
                                 .addGap(18, 18, 18)
-                                .addComponent(btnCodProd))
+                                .addComponent(btnBuscarProd))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(50, 50, 50)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -200,7 +200,7 @@ public class Ventas_Form extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtCodProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCodProd)
+                    .addComponent(btnBuscarProd)
                     .addComponent(jLabel7))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -322,8 +322,8 @@ public class Ventas_Form extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnAgregar;
     public javax.swing.JButton btnBucarCliente;
+    public javax.swing.JButton btnBuscarProd;
     public javax.swing.JButton btnCancelar;
-    public javax.swing.JButton btnCodProd;
     public javax.swing.JButton btnGenerarVenta;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

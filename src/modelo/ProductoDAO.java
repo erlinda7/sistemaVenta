@@ -86,12 +86,13 @@ public class ProductoDAO {
     
     
     //////////////////7777
-    public Producto listarId(){
+    public Producto listarId(int idProducto){
         Producto p=new Producto();
-        String sql="select * from producto where IdProducto";
+        String sql="select * from producto where IdProducto=?";
         try {
             con=conexion.conectar();
             ps=con.prepareStatement(sql);
+            ps.setInt(1, idProducto);
             rs=ps.executeQuery();
             while (rs.next()) {                
                 p.setIdProducto(rs.getInt(1));
